@@ -1,0 +1,111 @@
+[
+  {
+    "id": 1,
+    "title": "Funko Capitan America",
+    "description": "Funko Marvel, Capitan America , El Primer Vengador",
+    "code": "Fc1",
+    "price": 45000,
+    "status": "true",
+    "stock": 50,
+    "category": "Funko"
+  },
+  {
+    "id": 2,
+    "title": "Funko Iron Man",
+    "description": "Funko Marvel, Iron Man, Con su primer armadura",
+    "code": "Fc2",
+    "price": 48000,
+    "status": "true",
+    "stock": 60,
+    "category": "Funko"
+  },
+  {
+    "id": 3,
+    "title": "Alfres",
+    "description": "Alfred funeral de Bruce Wayne",
+    "code": "Fc11",
+    "price": 280000,
+    "status": "true",
+    "stock": 60,
+    "category": "Funko"
+  },
+  {
+    "id": 4,
+    "title": "Funko I am Groot",
+    "description": "Funko Marvel, Guardianes de la Galaxia",
+    "code": "Fc4",
+    "price": 45000,
+    "status": "true",
+    "stock": 50,
+    "category": "Funko"
+  },
+  {
+    "id": 5,
+    "title": "Funko Black Widow",
+    "description": "Funko Marvel, Black Widow, Avengers",
+    "code": "Fc5",
+    "price": 50000,
+    "status": "true",
+    "stock": 70,
+    "category": "Funko"
+  },
+  {
+    "id": 6,
+    "title": "Funko Thanos",
+    "description": "Funko Marvel, Thano, Infinity War",
+    "code": "Fc6",
+    "price": 45000,
+    "status": "true",
+    "stock": 10,
+    "category": "Funko"
+  },
+  {
+    "id": 7,
+    "title": "Funko Batman ",
+    "description": "Funko DC, Batman Inicia",
+    "code": "Fc7",
+    "price": 48000,
+    "status": "true",
+    "stock": 55,
+    "category": "Funko"
+  },
+  {
+    "id": 8,
+    "title": "Funko Jocker",
+    "description": "Funko DC, Jocker",
+    "code": "Fc8",
+    "price": 39000,
+    "status": "true",
+    "stock": 5, 
+    "category": "Funko"
+  },
+  {
+    "id": 9,
+    "title": "Funko CatWoman",
+    "description": "Funko DC, CatWoman, el caballero de la noche asciende",
+    "code": "Fc9",
+    "price": 50000,
+    "status": "true",
+    "stock": 33,
+    "category": "Funko"
+  },
+  {
+    "id": 10,
+    "title": "Funko Bane",
+    "description": "Funko DC, Bane",
+    "code": "Fc10",
+    "price": 250000,
+    "status": "true",
+    "stock": 60,
+    "category": "Funko"
+  },
+  {
+    "id": "7300bd0f-1330-4606-9216-ea0cb4740cb4",
+    "title": "Alfres",
+    "description": "Alfred funeral de Bruce Wayne",
+    "code": "Fc11",
+    "price": 280000,
+    "stock": 60,
+    "category": "Funko"
+  }
+]
