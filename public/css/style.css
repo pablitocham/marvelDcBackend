@@ -1,0 +1,33 @@
+body{
+    background-color: #eaf4fd;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.card-funko{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    position: relative;
+    width: 300px;
+}
+.card-funko img{
+    width: 100%;
+}
+.container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+h1{
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+p{
+    margin: 0;
+    padding: 10px;
+}

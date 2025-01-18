@@ -1,5 +1,4 @@
 import fs from "node:fs"
-import { v4 as uuid } from "uuid"
 
 class CartsService {
     path;
@@ -22,37 +21,46 @@ class CartsService {
     }
 
     async getById({ id }) {
-        const cart = this.carts.find(cart => cart.id === (id))
+        const cart = this.carts.find(cart => cart.id === Number(id))
         return cart
     }
 
     async create() {
-        const id = uuid();
-        const cart = { id, products: [] }
-        this.carts.push(cart)
-
+        const lastCart = this.carts.length > 0 ? this.carts[this.carts.length - 1] : null;
+        const id = lastCart ? Number(lastCart.id) + 1 : 1;
+        const cart = { id, products: [] };
+    
+        this.carts.push(cart);
         try {
-            await this.save()
-            return cart
+            await this.save();
+            return cart;
         } catch (error) {
-            throw new Error("Error al guardar el archivo del carrito")
+            throw new Error("Error al guardar el archivo del carrito");
         }
     }
+    
 
     async addProduct({ cid, pid, quantity }) {
-        const cart = this.carts.find(cart => cart.id === cid);
-        if (!cart) {
-            return null;
-        }
-
-        const existingProduct = cart.products.find(product => product.id === pid);
-        if (existingProduct) {
-            existingProduct.quantity += quantity;
-        } else {
-            cart.products.push({ id: pid, quantity });
-        }
-
         try {
+            const cart = this.carts.find(cart => cart.id === Number(cid));
+            if (!cart) {
+                console.log('No se encontró el carrito');
+                return null;
+            }
+
+            const cleanPid = Number(pid.toString().trim());
+            const existingProduct = cart.products.find(product => product.id === cleanPid);
+            if (existingProduct) {
+                existingProduct.quantity += Number(quantity);
+
+            } else {
+                const newProduct = {
+                    id: cleanPid,
+                    quantity: Number(quantity)
+                };
+                cart.products.push(newProduct);
+            }
+
             await this.save();
             return cart;
         } catch (error) {
@@ -61,12 +69,12 @@ class CartsService {
     }
 
     async updateProduct({ cid, pid, quantity }) {
-        const cart = this.carts.find(cart => cart.id === cid);
+        const cart = this.carts.find(cart => cart.id === Number(cid));
         if (!cart) {
             return null;
         }
 
-        const existingProduct = cart.products.find(product => product.id === pid);
+        const existingProduct = cart.products.find(product => product.id === Number(pid));
         if (existingProduct) {
             existingProduct.quantity = quantity;
         } else {
@@ -82,13 +90,14 @@ class CartsService {
     }
 
     async removeProduct({ cid, pid }) {
-        const cart = this.carts.find(cart => cart.id === cid);
+        const cart = this.carts.find(cart => cart.id === Number(cid));
         if (!cart) {
             return { message: "Carrito no encontrado" };
         }
 
         const initialLength = cart.products.length;
-        cart.products = cart.products.filter(product => product.id !== pid);
+        const cleanPid = Number(pid.toString().trim());
+        cart.products = cart.products.filter(product => Number(product.id) !== cleanPid);
 
         if (cart.products.length === initialLength) {
             return { message: "Producto no encontrado en el carrito" };
@@ -103,7 +112,7 @@ class CartsService {
     }
 
     async deleteCart({ cid }) {
-        const cartIndex = this.carts.findIndex(cart => cart.id === cid);
+        const cartIndex = this.carts.findIndex(cart => cart.id === Number(cid));
         if (cartIndex === -1) {
             return { message: "Carrito no encontrado" };
         }

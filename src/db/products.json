@@ -3,31 +3,34 @@
     "id": 1,
     "title": "Funko Capitan America",
     "description": "Funko Marvel, Capitan America , El Primer Vengador",
-    "code": "Fc1",
+    "code": "Cs1",
     "price": 45000,
     "status": "true",
     "stock": 50,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "cap.png"
   },
   {
     "id": 2,
     "title": "Funko Iron Man",
-    "description": "Funko Marvel, Iron Man, Con su primer armadura",
-    "code": "Fc2",
+    "description": "Funko Marvel, Iron Man",
+    "code": "I32",
     "price": 48000,
     "status": "true",
     "stock": 60,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "ironman.png"
   },
   {
     "id": 3,
-    "title": "Alfres",
-    "description": "Alfred funeral de Bruce Wayne",
+    "title": "Harley Quinn",
+    "description": "La emancipación de Harley Quinn",
     "code": "Fc11",
     "price": 280000,
     "status": "true",
     "stock": 60,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "harley.png"
   },
   {
     "id": 4,
@@ -37,17 +40,19 @@
     "price": 45000,
     "status": "true",
     "stock": 50,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "groot.png"
   },
   {
     "id": 5,
     "title": "Funko Black Widow",
-    "description": "Funko Marvel, Black Widow, Avengers",
+    "description": "Funko Marvel, Black Widow, Avengers End Game",
     "code": "Fc5",
     "price": 50000,
     "status": "true",
     "stock": 70,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "blackwidow.png"
   },
   {
     "id": 6,
@@ -57,7 +62,8 @@
     "price": 45000,
     "status": "true",
     "stock": 10,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "thanos.png"
   },
   {
     "id": 7,
@@ -66,8 +72,8 @@
     "code": "Fc7",
     "price": 48000,
     "status": "true",
-    "stock": 55,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "batman.png"
   },
   {
     "id": 8,
@@ -76,36 +82,39 @@
     "code": "Fc8",
     "price": 39000,
     "status": "true",
-    "stock": 5, 
-    "category": "Funko"
+    "stock": 5,
+    "category": "Funko",
+    "image": "jocker.png"
   },
   {
     "id": 9,
     "title": "Funko CatWoman",
-    "description": "Funko DC, CatWoman, el caballero de la noche asciende",
+    "description": "Funko DC, CatWoman, el Caballero de la noche asciende",
     "code": "Fc9",
     "price": 50000,
     "status": "true",
     "stock": 33,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "catwoman.png"
   },
   {
     "id": 10,
-    "title": "Funko Bane",
-    "description": "Funko DC, Bane",
+    "title": "Funko Iron Spidernan",
+    "description": "Funko Marvel, Iron Spiderman, End Game",
     "code": "Fc10",
     "price": 250000,
     "status": "true",
     "stock": 60,
-    "category": "Funko"
+    "category": "Funko",
+    "image": "ironspider.png"
   },
   {
-    "id": "7300bd0f-1330-4606-9216-ea0cb4740cb4",
-    "title": "Alfres",
-    "description": "Alfred funeral de Bruce Wayne",
-    "code": "Fc11",
-    "price": 280000,
-    "stock": 60,
+    "id": 11,
+    "title": "Gordon",
+    "description": "Comisionado Gordon Batman",
+    "code": "G356",
+    "price": "250000",
+    "stock": "3",
     "category": "Funko"
   }
 ]

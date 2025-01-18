@@ -1,0 +1,17 @@
+<h1> FunkoMania Marvel-Dc</h1>
+
+<div class="container">
+    {{#each products}}
+    <div class="card-funko">
+        <h2>{{this.title}}</h2>
+        {{#if this.image}}
+        <img src="/img/{{this.image}}" alt="{{this.title}}">
+        {{/if}}
+        <p>Descripción: {{this.description}}</p>
+        <p>Categoría: {{this.category}}</p>
+        <p>Código: {{this.code}}</p>
+        <p>Stock: {{this.stock}}</p>
+        <p>Precio: ${{this.price}}</p>
+    </div>
+        {{/each}}
+</div>

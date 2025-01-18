@@ -4,52 +4,71 @@ import { productsService } from "../services/products.services.js";
 
 export const cartsRouter = Router();
 
-cartsRouter.post("/", async (req, res) => {
+cartsRouter.get("/", async (req, res) => {
     try {
-        const cart = await cartsService.create();
-        if (!cart) {
-            return res.status(404).json({ message: "Carrito no encontrado" });
-        }
-        res.status(201).json(cart);
+        const carts = await cartsService.getAll();
+        res.status(200).json(carts);
     } catch (error) {
-        res.status(500).json({ message: "Interrnal server error; Error al crear el carrito" });
+        res.status(500).json({ message: "internal server error" });
     }
 });
 
 cartsRouter.get("/:cid", async (req, res) => {
     const { cid } = req.params;
-    const cart = await cartsService.getById({ id: cid });
-    if (!cart) {
-        return res.status(404).json({ message: "Carrito no encontrado" });
+    try {
+        const cart = await cartsService.getById({ id: Number(cid) });
+        if (!cart) {
+            return res.status(404).json({ message: "Carrito no encontrado" });
+        }
+        res.status(200).json(cart.products);
+    } catch (error) {
+        res.status(500).json({ message: "internal server error" });
     }
-    res.status(200).json(cart.products);
+});
+
+cartsRouter.post("/", async (req, res) => {
+    try {
+        const newCart = await cartsService.create();
+        if (!newCart) {
+            return res.status(404).json({ message: "Carrito no encontrado" });
+        }
+        res.status(201).json(newCart);
+    } catch (error) {
+        res.status(500).json({ message: "Interrnal server error; Error al crear el carrito" });
+    }
 });
 
 cartsRouter.post("/:cid/product/:id", async (req, res) => {
-    const { cid, id } = req.params;
-    const { quantity = 1 } = req.body;
-
-    const product = await productsService.getById({ id });
-    if (!product) {
-        return res.status(404).json({ message: "Producto no encontrado" });
-    }
-
     try {
-        const cart = await cartsService.addProduct({ cid, pid: id, quantity });
+        const { cid, id } = req.params;
+        const { quantity = 1 } = req.body;
+        if (!cid || !id) {
+            return res.status(400).json({ message: "Faltan parámetros requeridos" });
+        }
+
+        const product = await productsService.getById({ id });
+
+        if (!product) {
+            return res.status(404).json({ message: "Producto no encontrado" });
+        }
+
+        const cart = await cartsService.addProduct({ cid: Number(cid), pid: Number(id), quantity: Number(quantity) });
+
         if (!cart) {
             return res.status(404).json({ message: "Carrito no encontrado" });
         }
 
         res.status(200).json(cart);
     } catch (error) {
-        res.status(500).json({ message: "Error al agregar el producto al carrito" });
+        res.status(500).json({
+            message: "Error al agregar el producto al carrito", error: error.message
+        });
     }
 });
 
 cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
     const { cid, pid } = req.params;
     try {
-
         const cart = await cartsService.removeProduct({ cid, pid });
 
         if (cart.message) {
@@ -59,22 +78,19 @@ cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
         res.status(200).json(cart);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al eliminar el producto del carrito" });
+        res.status(500).json({ message: "Error al borrar el producto del carrito" });
     }
 });
 
 cartsRouter.delete("/:cid", async (req, res) => {
     const { cid } = req.params;
     try {
-        const cart = await cartsService.deleteCart({ cid });
-
-        if (cart.message) {
-            return res.status(404).json({ message: cart.message });
+        const result = await cartsService.deleteCart({ cid });
+        if (result.message) {
+            return res.status(404).json({ message: result.message });
         }
-
         res.status(200).json(cart);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: "Error al borrar el carrito" });
     }
-});
+})

@@ -1,5 +1,4 @@
 import fs from "node:fs"
-import { v4 as uuid } from "uuid"
 
 class ProductsService {
     path;
@@ -28,24 +27,28 @@ class ProductsService {
         return product
     }
 
-    async create({title, description, code, price, stock, category }) {
-        const id = uuid()
+    async create({ title, description, code, price, stock, category }) {
+
+        const lastId = this.products.length > 0
+            ? Math.max(...this.products.map(product => product.id))
+            : 0;
         const product = {
-            id,
+            id: lastId + 1, 
             title,
             description,
             code,
             price,
             stock,
             category,
-        }
-        this.products.push(product)
-        try {
-            await this.save()
-            return product
+        };
 
+        this.products.push(product);
+
+        try {
+            await this.save();
+            return product;
         } catch (error) {
-            throw new Error("Error al guardar el archivo")
+            throw new Error("Error al guardar el archivo");
         }
     }
 
@@ -61,22 +64,20 @@ class ProductsService {
         product.stock = stock ?? product.stock
         product.category = category ?? product.category
 
-        const index = this.products.findIndex(product => product.id === id)
-        this.products[index] = product
         try {
             await this.save()
             return product
         } catch (error) {
-            throw new Error("Error al actualizar el archivo")
+            throw new Error("Error al actualizar el producto")
         }
     }
 
     async delete({ id }) {
-        const product = this.products.find(product => product.id === id)
+        const product = this.products.find(product => product.id === Number(id))
         if (!product) {
             return null
         }
-        const index = this.products.findIndex(product => product.id === id)
+        const index = this.products.findIndex(product => product.id === Number(id))
 
         this.products.splice(index, 1)
 
@@ -84,7 +85,7 @@ class ProductsService {
             await this.save()
             return product
         } catch (error) {
-            throw new Error("Error al querer borrar el archivo")
+            throw new Error("Error al querer borrar")
         }
     }
 

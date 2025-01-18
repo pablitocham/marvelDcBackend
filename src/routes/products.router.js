@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { productsService } from "../services/products.services.js";
 export const productsRouter = Router();
+import { io } from "../server.js";
 
 productsRouter.get("/", async (req, res) => {
     try {
         const products = await productsService.getAll();
         res.status(200).json(products);
     } catch (error) {
-        res.status(500).json({ message: "internal server error" });
+        res.status(500).json({ message: "Internal server error" });
     }
 })
 
@@ -27,11 +28,13 @@ productsRouter.post("/", async (req, res) => {
     }
     try {
         const product = await productsService.create({ title, description, code, price, stock, category });
+        const productWithoutImage = { ...product, image: null };
+        io.emit("new-funko", productWithoutImage);
         res.status(201).json(product);
     } catch (error) {
-        res.status(500).json({ message: "internal server error" });
+        res.status(500).json({ message: "Internal server error" });
     }
-})
+});
 
 productsRouter.put("/:id", async (req, res) => {
     const { id } = req.params;
@@ -46,7 +49,7 @@ productsRouter.put("/:id", async (req, res) => {
         }
         res.status(200).json(product);
     } catch (error) {
-        res.status(500).json({ message: "internal server error" });
+        res.status(500).json({ message: "Internal server error" });
     }
 })
 
@@ -59,6 +62,7 @@ productsRouter.delete("/:id", async (req, res) => {
         }
         res.status(204).end()
     } catch (error) {
-        res.status(500).json({ message: "internal server error" });
+        res.status(500).json({ message: "Internal server error" });
     }
 })
+
