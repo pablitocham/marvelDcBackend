@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+   
     "title": "Funko Capitan America",
     "description": "Funko Marvel, Capitan America , El Primer Vengador",
     "code": "Cs1",
@@ -11,7 +11,7 @@
     "image": "cap.png"
   },
   {
-    "id": 2,
+ 
     "title": "Funko Iron Man",
     "description": "Funko Marvel, Iron Man",
     "code": "I32",
@@ -22,7 +22,7 @@
     "image": "ironman.png"
   },
   {
-    "id": 3,
+ 
     "title": "Harley Quinn",
     "description": "La emancipación de Harley Quinn",
     "code": "Fc11",
@@ -33,7 +33,7 @@
     "image": "harley.png"
   },
   {
-    "id": 4,
+
     "title": "Funko I am Groot",
     "description": "Funko Marvel, Guardianes de la Galaxia",
     "code": "Fc4",
@@ -44,7 +44,7 @@
     "image": "groot.png"
   },
   {
-    "id": 5,
+
     "title": "Funko Black Widow",
     "description": "Funko Marvel, Black Widow, Avengers End Game",
     "code": "Fc5",
@@ -55,7 +55,7 @@
     "image": "blackwidow.png"
   },
   {
-    "id": 6,
+  
     "title": "Funko Thanos",
     "description": "Funko Marvel, Thano, Infinity War",
     "code": "Fc6",
@@ -66,7 +66,7 @@
     "image": "thanos.png"
   },
   {
-    "id": 7,
+  
     "title": "Funko Batman ",
     "description": "Funko DC, Batman Inicia",
     "code": "Fc7",
@@ -76,7 +76,7 @@
     "image": "batman.png"
   },
   {
-    "id": 8,
+    
     "title": "Funko Jocker",
     "description": "Funko DC, Jocker",
     "code": "Fc8",
@@ -87,7 +87,7 @@
     "image": "jocker.png"
   },
   {
-    "id": 9,
+
     "title": "Funko CatWoman",
     "description": "Funko DC, CatWoman, el Caballero de la noche asciende",
     "code": "Fc9",
@@ -98,7 +98,7 @@
     "image": "catwoman.png"
   },
   {
-    "id": 10,
+  
     "title": "Funko Iron Spidernan",
     "description": "Funko Marvel, Iron Spiderman, End Game",
     "code": "Fc10",
@@ -107,14 +107,5 @@
     "stock": 60,
     "category": "Funko",
     "image": "ironspider.png"
-  },
-  {
-    "id": 11,
-    "title": "Gordon",
-    "description": "Comisionado Gordon Batman",
-    "code": "G356",
-    "price": "250000",
-    "stock": "3",
-    "category": "Funko"
   }
 ]

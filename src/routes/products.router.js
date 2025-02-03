@@ -1,49 +1,62 @@
 import { Router } from "express";
-import { productsService } from "../services/products.services.js";
+import { productsModel } from "../models/products.model.js";
 export const productsRouter = Router();
 import { io } from "../server.js";
+import mongoose from "mongoose";
+
 
 productsRouter.get("/", async (req, res) => {
     try {
-        const products = await productsService.getAll();
+        const products = await productsModel.find();
         res.status(200).json(products);
     } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error al solicitar los productos" });
+
     }
 })
 
 productsRouter.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const product = await productsService.getById({ id });
-    if (!product) {
-        return res.status(404).json({ message: "Producto no encontrado" });
+    try {
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({ message: "Id invalido" });
+        }
+        const product = await productsModel.findById(id);
+        if (!product) {
+            return res.status(404).json({ message: "Producto no encontrado" });
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        console.error(error);
+        throw new Error("Internal server error al solicitar el producto");
     }
-    res.status(200).json(product);
 })
 
 productsRouter.post("/", async (req, res) => {
-    const { title, description, code, price, stock, category } = req.body;
+    const { title, description, code, price, stock, category, status } = req.body;
     if (!title || !description || !code || !price || !stock || !category) {
         return res.status(400).json({ message: "Para crear debe hacerlos con todos los datos requeridos" });
     }
     try {
-        const product = await productsService.create({ title, description, code, price, stock, category });
-        const productWithoutImage = { ...product, image: null };
-        io.emit("new-funko", productWithoutImage);
-        res.status(201).json(product);
+        const newproduct = new productsModel({ title, description, code, price, stock, category, status: status !== undefined ? status : true });
+        const savedProduct = await newproduct.save();
+        //const productWithoutImage = { ...savedProduct.toObject(), image: null };
+
+        io.emit("new-funko", savedProduct);
+        res.status(201).json(savedProduct);
     } catch (error) {
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error y no se por que" });
     }
 });
 
 productsRouter.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { title, description, code, price, stock, category } = req.body;
-    if (!id || isNaN(id)) {
+    if (!mongoose.isValidObjectId(id)) {
         return res.status(400).json({ message: "Id invalido" })
     }
     try {
-        const product = await productsService.update({ id, title, description, code, price, stock, category });
+        const product = await productsModel.findByIdAndUpdate(id, { title, description, code, price, stock, category, new: true });
         if (!product) {
             return res.status(404).json({ message: "Producto no encontrado" });
         }
@@ -56,7 +69,7 @@ productsRouter.put("/:id", async (req, res) => {
 productsRouter.delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        const product = await productsService.delete({ id });
+        const product = await productsModel.findByIdAndDelete(id);
         if (!product) {
             return res.status(404).json({ message: "Producto no encontrado" });
         }
