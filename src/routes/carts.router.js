@@ -25,6 +25,8 @@ cartsRouter.get("/:cid", async (req, res) => {
     }
 });
 
+
+
 cartsRouter.post("/", async (req, res) => {
 
     try {
@@ -51,7 +53,7 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
         });
     }
 });
-//probaremos acutlaizar la cantidad de un productos del carrito
+
 cartsRouter.put("/:cid/product/:pid", async (req, res) => {
     try {
         const { cid, pid } = req.params;
@@ -93,3 +95,4 @@ cartsRouter.delete("/:cid", async (req, res) => {
         res.status(500).json({ message: "Error al borrar el carrito" });
     }
 })
+

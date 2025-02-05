@@ -1,33 +1,67 @@
-body{
+body {
     background-color: #eaf4fd;
     font-size: 16px;
     line-height: 1.6;
     margin: 0;
     padding: 0;
 }
-.card-funko{
+
+.card-funko {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 20px;
+    padding: 20px;
     overflow: hidden;
     position: relative;
-    width: 300px;
-}
-.card-funko img{
     width: 100%;
+    max-width: 300px;
+    height: auto;
+    transition: transform 0.5s ease-in-out box-shadow 0.5s ease-in-out;
 }
-.container{
+
+.card-funko img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.card-funko:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
 }
-h1{
+
+h1 {
     text-align: center;
 }
-h2{
+
+h2 {
     text-align: center;
 }
-p{
-    margin: 0;
-    padding: 10px;
+
+p {
+    margin: 10px 0;
+
+}
+
+@media screen and (min-width: 1024px) {
+    .card-funko {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        width: 300px;
+    }
 }

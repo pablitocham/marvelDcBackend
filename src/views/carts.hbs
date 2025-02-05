@@ -1,0 +1,24 @@
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each cart.items}}
+        <tr>
+            <td>{{this.productId.title}}</td>
+            <td>${{this.productId.price}}</td>
+            <td>{{this.quantity}}</td>
+            <td>${{this.totalPrice}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="4">Tu carrito está vacío.</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

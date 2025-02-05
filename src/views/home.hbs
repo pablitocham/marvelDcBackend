@@ -1,4 +1,4 @@
-<h1> FunkoMania Marvel-Dc</h1>
+<h1>FunkoMania Marvel-Dc</h1>
 
 <div class="container">
     {{#each products}}
@@ -12,6 +12,12 @@
         <p>Código: {{this.code}}</p>
         <p>Stock: {{this.stock}}</p>
         <p>Precio: ${{this.price}}</p>
+        <form id="addToCartForm_{{this._id}}" onsubmit="addToCart(event, '{{this._id}}')">
+            <button type="submit" class="btn waves-effect waves-light">Agregar al carrito</button>
+        </form>
+
     </div>
-        {{/each}}
+    {{/each}}
 </div>
+
+<script src="./js/addCart.js"></script>

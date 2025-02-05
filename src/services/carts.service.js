@@ -30,7 +30,7 @@ class CartsService {
             throw new Error("Carrito no encontrado");
         }
 
-        const productId =new mongoose.Types.ObjectId(pid);
+        const productId = new mongoose.Types.ObjectId(pid);
         const product = await productsModel.findById(productId);
         if (!product) {
             throw new Error("Producto no encontrado");

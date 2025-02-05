@@ -13,16 +13,6 @@ import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access
 
 import { productsService } from "./services/products.services.js";
 
-
-// import { cartsModel } from "./models/carts.model.js";
-// async function createCarrito() {
-//   const newCart =  new cartsModel({ products: [], totalPrice: 0 });
-//   await newCart.save();
-//   console.log("carrito creado", newCart);
-//   return newCart;
-// }
-// createCarrito();
-
 const app = express();
 const PORT = 5000;
 app.use((req, res, next) => {
