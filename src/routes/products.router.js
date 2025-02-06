@@ -7,11 +7,21 @@ import mongoose from "mongoose";
 
 productsRouter.get("/", async (req, res) => {
     try {
-        const products = await productsModel.find();
+        let { page = 1, limit = 20, title, price, category } = req.query;
+        page = parseInt(page)
+        limit = parseInt(limit)
+        let query = {}
+        if (title) query.title = { $regex: title, $options: "i" };
+        if (price) query.price = { $lte: parseFloat(price) };
+        if (category) query.category = category
+
+        const products = await productsModel.paginate(query, { page, limit });
+        if (products.docs.length === 0) {
+            return res.status(404).json({ message: "No se encontraron productos" })
+        }
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ message: "Internal server error al solicitar los productos" });
-
     }
 })
 
@@ -40,7 +50,6 @@ productsRouter.post("/", async (req, res) => {
     try {
         const newproduct = new productsModel({ title, description, code, price, stock, category, status: status !== undefined ? status : true });
         const savedProduct = await newproduct.save();
-        //const productWithoutImage = { ...savedProduct.toObject(), image: null };
 
         io.emit("new-funko", savedProduct);
         res.status(201).json(savedProduct);

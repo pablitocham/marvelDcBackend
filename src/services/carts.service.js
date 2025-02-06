@@ -14,14 +14,11 @@ class CartsService {
         try {
             const newCart = new cartsModel({ products: [], totalPrice: 0 });
             await newCart.save();
-            console.log("carrito creado con ID", newCart._id);
             return newCart;
         } catch (error) {
-            console.log("Error al crear el carrito", error);
             throw new Error("Error al guardar el archivo del carrito");
         }
     }
-
 
     async addProduct({ cid, pid, quantity }) {
         if (quantity <= 0) throw new Error("La cantidad debe ser mayor a 0");
@@ -63,20 +60,20 @@ class CartsService {
     async removeProduct({ cid, pid }) {
         const cart = await cartsModel.findById(cid);
         if (!cart) {
-            return {message: "Carrito no encontrado"};
+            return { message: "Carrito no encontrado" };
         }
         const productIndex = cart.products.findIndex(product => product.productId.equals(pid));
         if (productIndex === -1) {
-            return {message: "Producto no encontrado en el carrito"};
+            return { message: "Producto no encontrado en el carrito" };
         }
-        
+
         cart.products.splice(productIndex, 1);
         await cart.calculateTotalPrice();
         await cart.save();
-        return {message: "Producto eliminado del carrito", cart};
+        return { message: "Producto eliminado del carrito", cart };
     }
 
-    async deleteCart( cid ) {
+    async deleteCart(cid) {
         const result = await cartsModel.findByIdAndDelete(cid);
         if (!result) {
             return null;

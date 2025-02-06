@@ -25,8 +25,6 @@ cartsRouter.get("/:cid", async (req, res) => {
     }
 });
 
-
-
 cartsRouter.post("/", async (req, res) => {
 
     try {
@@ -66,9 +64,6 @@ cartsRouter.put("/:cid/product/:pid", async (req, res) => {
     }
 });
 
-
-
-
 cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
     const { cid, pid } = req.params;
     try {
@@ -78,7 +73,6 @@ cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
         }
         res.status(200).json({ message: "Producto eliminado del carrito", cart: result });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: "Error al borrar el producto del carrito" });
     }
 });

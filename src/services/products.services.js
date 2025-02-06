@@ -7,7 +7,7 @@ class ProductsService {
     }
 
     async getById({ id }) {
-      return  await productsModel.findById(id);
+        return await productsModel.findById(id);
     }
 
     async create({ title, description, code, price, status, stock, category }) {
@@ -41,6 +41,14 @@ class ProductsService {
     async delete({ id }) {
         return await productsModel.findByIdAndDelete(id);
     }
+    async getPaginate({ page = 1, limit = 10 }) {
+        const options = {
+            page,
+            limit
+        }
+        return await productsModel.paginate({}, options);
 
+    }
 }
+
 export const productsService = new ProductsService()
