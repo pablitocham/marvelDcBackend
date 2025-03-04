@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+
 const cartsSchema = new Schema({
     products: [
         {
@@ -15,6 +16,5 @@ cartsSchema.methods.calculateTotalPrice = async function () {
         return acc + product.productId.price * product.quantity;
     }, 0);
     return this;
-
 };
 export const cartsModel = model('Carts', cartsSchema);

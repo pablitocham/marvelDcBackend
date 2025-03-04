@@ -93,4 +93,5 @@ class CartsService {
         return { message: "Compra confirmada", total };
     }
 }
+
 export const cartsService = new CartsService()

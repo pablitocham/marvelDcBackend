@@ -4,7 +4,6 @@ export const productsRouter = Router();
 import { io } from "../server.js";
 import mongoose from "mongoose";
 
-
 productsRouter.get("/", async (req, res) => {
     try {
         let { page = 1, limit = 20, title, price, category } = req.query;

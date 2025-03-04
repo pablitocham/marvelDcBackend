@@ -1,7 +1,6 @@
 import { productsModel } from "../models/products.model.js";
 
 class ProductsService {
-
     async getAll() {
         return await productsModel.find();
     }
@@ -11,7 +10,6 @@ class ProductsService {
     }
 
     async create({ title, description, code, price, status, stock, category }) {
-
         const product = new productsModel({
             title,
             description,
@@ -21,9 +19,7 @@ class ProductsService {
             stock,
             category
         });
-
         return await product.save();
-
     }
 
     async update({ id, title, description, code, price, stock, category }) {
@@ -47,7 +43,6 @@ class ProductsService {
             limit
         }
         return await productsModel.paginate({}, options);
-
     }
 }
 
