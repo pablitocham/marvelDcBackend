@@ -41,7 +41,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server runnig on http://localhost:${PORT}`);
 })
 
-mongoose.connect("mongodb+srv://jpablocham:AciN5CgFKf24CC2G@cluster0.jr2ro.mongodb.net/funkopop")
+mongoose.connect("insertar url de mongo que deje en el comentario de la entrega" )
   .then(() => {
     console.log("Conectado a la base de datos");
   })
