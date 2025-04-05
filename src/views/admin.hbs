@@ -1,0 +1,20 @@
+<h1>Panel de Administración - FunkoMania</h1>
+
+<div class="container">
+    {{#each products}}
+    <div class="card-funko">
+        <h2>{{this.title}}</h2>
+        <img src="/img/{{this.image}}" alt="{{this.title}}">
+        <p>Descripción: {{this.description}}</p>
+        <p>Categoría: {{this.category}}</p>
+        <p>Código: {{this.code}}</p>
+        <p>Stock: {{this.stock}}</p>
+        <p>Precio: ${{this.price}}</p>
+
+        <a href="/admin/edit/{{this._id}}" class="btn blue">Editar</a>
+        <form action="/admin/delete/{{this._id}}" method="POST" style="display:inline;">
+            <button type="submit" class="btn red">Eliminar</button>
+        </form>
+    </div>
+    {{/each}}
+</div>

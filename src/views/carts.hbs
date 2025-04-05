@@ -22,3 +22,34 @@
         {{/each}}
     </tbody>
 </table>
+
+{{#if cart.items.length}}
+<div class="right-align" style="margin-top: 20px;">
+    <a href="#" id="checkout-button" class="waves-effect waves-light btn">Finalizar Compra</a>
+</div>
+
+<script>
+    document.getElementById('checkout-button').addEventListener('click', async function (e) {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/carts/{{user.cart}}/purchase', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('¡Compra finalizada con éxito! Se ha generado su ticket.');
+                window.location.href = '/tickets/' + data.ticketId;
+            } else {
+                alert('Error: ' + data.message);
+            }
+        } catch (error) {
+            alert('Error al procesar la compra');
+            console.error(error);
+        }
+    });
+</script>
+{{/if}}

@@ -10,11 +10,12 @@ import mongoose from "mongoose";
 import Handlebars from "handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { productsService } from "./services/products.services.js";
-
+import { CONFIG } from "./config/config.js";
 import passport from "passport";
 import initializePassport from "./config/passport.js";
 import cookieParser from "cookie-parser";
-import { routerUser } from "./routes/auth.routes.js";
+import { authRouter } from "./routes/auth.router.js";
+import { adminRouter } from "./routes/admin.router.js";
 const app = express();
 const PORT = 5000;
 
@@ -25,29 +26,38 @@ app.use(cookieParser());
 initializePassport(passport);
 app.use(passport.initialize());
 
+;
 
 app.use(express.static(path.resolve(__dirname, "../public")));
 
-app.engine("hbs", handlebars.engine({ defaultLayout: "main", extname: ".hbs", handlebars: allowInsecurePrototypeAccess(Handlebars) }));
+app.engine("hbs", handlebars.engine({ defaultLayout: "main", extname: ".hbs", handlebars: allowInsecurePrototypeAccess(Handlebars), helpers:{eq:(a,b) => a ===b} }));
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter)
 app.use("/", viewsRouter);
-app.use("/api/sessions", routerUser);
+app.use("/api/sessions", authRouter);
+app.use("/api/admin", adminRouter);
 
 const server = app.listen(PORT, () => {
   console.log(`Server runnig on http://localhost:${PORT}`);
 })
 
-mongoose.connect("insertar url de mongo que deje en el comentario de la entrega" )
-  .then(() => {
-    console.log("Conectado a la base de datos");
-  })
-  .catch((error) => {
-    console.log("Error al conectar a la base de datos", error);
-  })
+
+
+if (CONFIG.PERSISTENCE === "mongodb") {
+  mongoose
+    .connect(CONFIG.MONGO_URI)
+    .then(() => {
+      console.log("Conectado a la base de datos");
+    })
+    .catch((error) => {
+      console.log("Error al conectar a la base de datos", error);
+    });
+} else {
+  console.log("Modo memoria: no se conecta a MongoDB");
+}
 
 
 export const io = new Server(server);

@@ -10,7 +10,6 @@ class CartsService {
         return await cartsModel.findById(id).populate('products.productId');
     }
     async create() {
-
         try {
             const newCart = new cartsModel({ products: [], totalPrice: 0 });
             await newCart.save();
@@ -91,6 +90,13 @@ class CartsService {
         cart.products = [];
         await cart.save();
         return { message: "Compra confirmada", total };
+    }
+    async emptyCart(cid) {
+        const cart = await cartsModel.findById(cid);
+        if (!cart) return { message: "Carrito no encontrado" };
+        cart.products = [];
+        await cart.calculateTotalPrice();
+        return await cart.save();
     }
 }
 

@@ -2,7 +2,10 @@ import { Router } from "express";
 import { productsService } from "../services/products.services.js";
 export const viewsRouter = Router();
 import { cartsService } from "../services/carts.service.js";
+import { ticketModel } from "../models/ticket.model.js";
 import passport from "passport";
+import { isAdmin } from "../middleware/admin.middleware.js";
+
 
 viewsRouter.get("/register", (req, res) => {
   res.render("register", { title: "Registrarse" });
@@ -61,3 +64,47 @@ viewsRouter.get("/carts", passport.authenticate("jwt", { session: false }), asyn
   }
 })
 
+
+viewsRouter.get("/tickets/:tid", async (req, res) => {
+  console.log("Parámetro recibido en la URL:", req.params.tid);
+
+  if (!req.params.tid || req.params.tid === "undefined") {
+    return res.status(400).send("ID del ticket no válido");
+  }
+
+  try {
+    const ticket = await ticketModel.findById(req.params.tid).lean();
+    console.log("Ticket obtenido desde la base de datos:", ticket);
+
+    if (!ticket) {
+      return res.status(404).send("Ticket no encontrado");
+    }
+
+    const formattedDate = new Date(ticket.purchase_datetime).toLocaleString();
+
+    res.render("ticket", {
+      title: "Ticket de Compra",
+      ticket: {
+        ...ticket,
+        date: formattedDate
+      }
+    });
+
+  } catch (error) {
+    console.error("Error en la consulta:", error);
+    res.status(500).send("Error en el servidor");
+  }
+});
+
+viewsRouter.get("/admin",
+  passport.authenticate("jwt", { session: false }),
+  isAdmin,
+  async (req, res) => {
+    try {
+      const allProducts = await productsService.getAll();
+      res.render("admin", { title: "Panel de Administración", products: allProducts, user: req.user });
+    } catch (error) {
+      console.error("Error al cargar el panel de administrador:", error);
+      res.status(500).send("Error al cargar la vista de administrador");
+    }
+  });

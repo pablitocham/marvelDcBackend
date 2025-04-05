@@ -1,5 +1,7 @@
 <h1>FunkoMania Marvel-Dc</h1>
-
+{{#if (eq user.role "admin")}}
+  <a href="/admin" class="btn blue">Panel de Administración</a>
+{{/if}}
 <div class="container">
     {{#each products}}
     <div class="card-funko">

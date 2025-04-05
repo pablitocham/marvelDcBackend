@@ -2,28 +2,36 @@ async function addToCart(event, productId) {
     event.preventDefault();
 
     try {
-        let response = await fetch("/api/carts")
-        let carts = await response.json()
-        let cartId
-        if (carts.length === 0) {
-            response = await fetch("/api/carts", {
-                method: "POST",
-            })
-            const newCart = await response.json()
-            cartId = newCart._id
-        } else {
-            cartId = carts[0]._id
+        const resUser = await fetch("/api/sessions/current");
+        if (!resUser.ok) {
+            throw new Error("No se pudo obtener la información del usuario");
         }
-        await fetch(`/api/carts/${cartId}/product/${productId}`, {
+
+        const userData = await resUser.json();
+        if (!userData || !userData.user) {
+            throw new Error("No hay sesión de usuario activa");
+        }
+
+        const cartId = userData.user.cart;
+        if (!cartId) {
+            throw new Error("El usuario no tiene un carrito asignado");
+        }
+
+        const response = await fetch(`/api/carts/${cartId}/product/${productId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ quantity: 1 })
-        })
-        window.location.href = "/carts"
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Error al agregar producto al carrito");
+        }
+        window.location.href = "/carts";
     } catch (error) {
-        console.error(error)
-        alert("Error al agregar producto al carrito")
+        console.error("Error:", error.message);
+        alert(error.message || "Error al agregar producto al carrito");
     }
 }

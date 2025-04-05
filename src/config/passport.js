@@ -1,29 +1,30 @@
-import { Strategy as JwStrategy, ExtractJwt } from "passport-jwt";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { userModel } from "../models/user.models.js";
-const JWT_SECRET = "claveSecreta";
+import { CONFIG } from "../config/config.js";
+
 const cookieExtractor = (req) => {
-    let token = null;
-    if (req && req.cookies) {
-        token = req.cookies['token'];
-    }
+    const token = req?.cookies?.token || null;
     return token;
-}
+};
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-    secretOrKey: JWT_SECRET
-}
+    secretOrKey: CONFIG.JWT_SECRET,
+};
 
 export const initializePassport = (passport) => {
-    passport.use(new JwStrategy(opts, async (payload, done) => {
-        try {
-            const user = await userModel.findById(payload.id);
-            if (!user) { return done(null, false); }
-            return done(null, user);
-        } catch (error) {
-            return done(error, false);
-        }
-    }))
-}
-export { JWT_SECRET }
-export default initializePassport
+    passport.use(
+        new JwtStrategy(opts, async (payload, done) => {
+            try {
+                const user = await userModel.findById(payload.id);
+                if (!user) return done(null, false);
+                return done(null, user);
+            } catch (error) {
+                return done(error, false);
+            }
+        })
+    );
+};
+
+export const JWT_SECRET = CONFIG.JWT_SECRET;
+export default initializePassport;

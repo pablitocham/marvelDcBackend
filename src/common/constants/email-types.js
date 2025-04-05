@@ -1,0 +1,3 @@
+export const EMAIL_TYPES = {
+    WELCOME: 'BIENVENIDO A MUNDO MARVEL-DC FUNKO',
+}
