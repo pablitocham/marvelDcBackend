@@ -8,7 +8,8 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     cart: { type: Schema.Types.ObjectId, ref: "Carts" },
-    role: { type: String, enum: ["user", "admin"], default: "user" }
+    role: { type: String, enum: ["user", "admin"], default: "user" },
+    pets: [{ type: Schema.Types.ObjectId, ref: "Pets" }],
 })
 
 userSchema.pre("save", async function (next) {

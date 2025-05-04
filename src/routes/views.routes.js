@@ -7,6 +7,7 @@ import passport from "passport";
 import { isAdmin } from "../middleware/admin.middleware.js";
 
 
+
 viewsRouter.get("/register", (req, res) => {
   res.render("register", { title: "Registrarse" });
 })
@@ -108,3 +109,5 @@ viewsRouter.get("/admin",
       res.status(500).send("Error al cargar la vista de administrador");
     }
   });
+
+
