@@ -1,6 +1,6 @@
 import { userModel } from '../../models/user.models.js';
 import { UserDTO } from '../../dto/user.dto.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export class UserMongoDAO {
   async create(userData) {

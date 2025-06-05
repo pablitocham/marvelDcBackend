@@ -17,8 +17,14 @@ import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/auth.router.js";
 import { adminRouter } from "./routes/admin.router.js";
 import { mocksRouter } from "./routes/mocks.routers.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
+import { info } from "./docs/info.js";
 const app = express();
 const PORT = 5000;
+
+const  specs = swaggerJSDoc(info)
+app.use ("/docs", swaggerUi.serve, swaggerUi.setup(specs))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

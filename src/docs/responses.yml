@@ -1,0 +1,110 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Estado de la respuesta
+          example: "success"
+        message:
+          type: string
+          description: Mensaje descriptivo
+          example: "Usuario registrado exitosamente"
+        data:
+          type: object
+          properties:
+            first_name:
+              type: string
+              example: "Tony"
+            last_name:
+              type: string
+              example: "Stark"
+            age:
+              type: integer
+              example: 45
+            email:
+              type: string
+              format: email
+              example: "ironman@stark.com"
+
+    LoginResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Estado de la respuesta
+          example: "success"
+        message:
+          type: string
+          description: Mensaje descriptivo
+          example: "Login exitoso"
+        data:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: "Tony"
+                last_name:
+                  type: string
+                  example: "Stark"
+                age:
+                  type: integer
+                  example: 45
+                email:
+                  type: string
+                  format: email
+                  example: "ironman@stark.com"
+            token:
+              type: string
+              description: Token JWT para autenticación
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    Profile:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Código de estado HTTP
+          example: 200
+        message:
+          type: string
+          description: Mensaje descriptivo
+          example: "Perfil obtenido exitosamente"
+        data:
+          type: object
+          properties:
+            first_name:
+              type: string
+              example: "Tony"
+            last_name:
+              type: string
+              example: "Stark"
+            age:
+              type: integer
+              example: 45
+            email:
+              type: string
+              format: email
+              example: "ironman@stark.com"
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de error descriptivo
+          example: "Error en la validación de datos"
+        code:
+          type: string
+          description: Código de error específico (opcional)
+          example: "VALIDATION_ERROR"
+        details:
+          type: array
+          description: Detalles adicionales del error (opcional)
+          items:
+            type: string
+          example: ["El campo email es requerido", "La contraseña debe tener al menos 6 caracteres"]

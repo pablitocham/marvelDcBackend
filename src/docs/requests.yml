@@ -1,0 +1,64 @@
+components:
+  schemas:
+    BodyMarvelDc:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - age
+        - email
+        - password
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+          minLength: 2
+          maxLength: 50
+          example: "Peter"
+        last_name:
+          type: string
+          description: Apellido del usuario
+          minLength: 2
+          maxLength: 50
+          example: "Parker"
+        age:
+          type: integer
+          description: Edad del usuario
+          minimum: 13
+          maximum: 120
+          example: 25
+        email:
+          type: string
+          format: email
+          description: Dirección de correo electrónico única
+          example: "spiderman@marvel.com"
+        password:
+          type: string
+          format: password
+          description: Contraseña del usuario (mínimo 6 caracteres)
+          minLength: 6
+          example: "spider123456"
+
+    Login:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          description: Dirección de correo electrónico
+          example: "ironman@stark.com"
+        password:
+          type: string
+          format: password
+          description: Contraseña del usuario
+          example: "123456"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token JWT obtenido del endpoint /sessions/login
